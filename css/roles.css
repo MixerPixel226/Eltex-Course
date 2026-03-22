@@ -1,0 +1,45 @@
+.roles__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.roles__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.roles__item:hover > .roles__name::after {
+    width: 100%;
+}
+
+.roles__name {
+    padding: 10px 0 0 0;
+    position: relative;
+}
+
+.roles__name::after {
+    content: "";
+    height: 2px;
+    width: 0;
+    background: var(--grey-color);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    transition: width 0.3s;
+}
+
+.roles__desc {
+    color: var(--grey-color);
+    padding: 10px 0;
+}
+
+.roles__img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
