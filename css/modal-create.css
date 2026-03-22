@@ -8,6 +8,19 @@
     top: 0;
     left: 0;
     backdrop-filter: blur(5px);
+    visibility: hidden;
+    opacity: 0;
+    transition:
+        opacity 0.3s ease,
+        visibility 0s linear 0.3s;
+}
+
+.modal-create--visiable {
+    visibility: visible;
+    opacity: 1;
+    transition:
+        opacity 0.3s ease,
+        visibility 0s linear 0s;
 }
 
 .modal-create__inner {
