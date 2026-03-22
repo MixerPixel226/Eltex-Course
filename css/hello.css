@@ -16,7 +16,7 @@
     flex: 1 1 300px;
     min-width: 200px;
     padding: 10px 0;
-    color: var(--main-opacity-color);
+    color: var(--block-background-color);
 }
 
 .hello__block > h1 {

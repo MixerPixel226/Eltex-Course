@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="css/history.css" />
 
         <link rel="stylesheet" href="css/control.css" />
+        <link rel="stylesheet" href="css/modal-create.css" />
 
         <script src="./js/theme.js" defer></script>
     </head>
@@ -332,6 +333,7 @@
                     <button class="button" type="submit">Помурчать</button>
                 </form>
             </footer>
+
             <div class="blog-control">
                 <ul class="blog-control__list">
                     <li class="blog-control__item">
@@ -381,6 +383,57 @@
                         </button>
                     </li>
                 </ul>
+            </div>
+
+            <div class="modal-create">
+                <div class="modal-create__inner">
+                    <h2 class="modal-create__title">Создать статью</h2>
+                    <form method="get">
+                        <div>
+                            <label for="form-create-title">Заголовок</label>
+                            <input
+                                type="text"
+                                name="title"
+                                id="form-create-title"
+                                placeholder="Заголовок"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label for="form-create-desc">Текст статьи</label>
+                            <textarea
+                                id="form-create-desc"
+                                name="desc"
+                                placeholder="Текст статьи"
+                                required
+                            ></textarea>
+                        </div>
+                        <div>
+                            <label for="form-create-img">Изображение</label>
+                            <input
+                                type="text"
+                                name="img"
+                                id="form-create-img"
+                                placeholder="Изображение (адрес)"
+                                required
+                            />
+                        </div>
+                        <div class="modal-create__buttons">
+                            <button
+                                class="button modal-create__btn-add"
+                                type="button"
+                            >
+                                Создать
+                            </button>
+                            <button
+                                class="button modal-create__btn-cancel"
+                                type="button"
+                            >
+                                Отмена
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </body>
