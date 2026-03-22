@@ -20,14 +20,24 @@
 }
 
 .nav__link {
+    display: flex;
+    align-items: center;
     font-size: 17px;
     position: relative;
     transition: 0.3s;
+    gap: 5px;
 }
 
-.nav__link > svg {
+.nav__svg-main {
+    width: 18px;
+    height: 18px;
+    transition: color 0.3s;
+}
+
+.nav__svg-sec {
     position: absolute;
     width: 15px;
+    height: 15px;
     right: -12px;
     top: -3px;
     display: block;
@@ -40,6 +50,10 @@
 }
 
 .nav__link:hover > svg {
+    color: var(--main-color);
+}
+
+.nav__link:hover {
     color: var(--main-color);
 }
 

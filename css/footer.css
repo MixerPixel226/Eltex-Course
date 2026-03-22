@@ -7,10 +7,6 @@ footer {
     padding: 20px;
 }
 
-footer svg {
-    color: var(--white);
-}
-
 footer h2 {
     padding: 0;
 }
@@ -46,17 +42,18 @@ footer > address {
 }
 
 .social__link svg {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     display: block;
+    color: var(--white);
 }
 
 .social__link.vk:hover > svg {
-    color: rgb(15, 64, 110);
+    color: rgb(87, 131, 172);
 }
 
 .social__link.insta:hover > svg {
-    color: rgb(107, 19, 107);
+    color: rgb(189, 112, 151);
 }
 
 .footer__form {
