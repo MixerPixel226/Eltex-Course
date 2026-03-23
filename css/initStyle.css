@@ -69,3 +69,7 @@ button {
 address {
     font-style: initial;
 }
+
+[hidden] {
+    display: none !important;
+}

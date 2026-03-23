@@ -1,0 +1,49 @@
+.hello {
+    display: flex;
+    padding: 10px 40px;
+    min-height: 400px;
+    background-image: url(../assets/hello-fon.png);
+    border-radius: 30px;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    container-type: inline-size;
+    container-name: hello;
+}
+
+.hello__block {
+    flex: 1 1 300px;
+    min-width: 200px;
+    padding: 10px 0;
+    color: var(--block-background-color);
+}
+
+.hello__block > h1 {
+    font-weight: 900;
+    font-size: 50px;
+    font-size: clamp(34px, 5vw, 50px);
+}
+
+.hello__block > p {
+    padding: 10px 0 20px 0;
+    font-size: 18px;
+}
+
+.hello__button:hover {
+    transform: scale(1.1);
+}
+
+.hello__image {
+    margin-top: 50px;
+    opacity: 0.9;
+    max-width: 300px;
+    height: auto;
+}
+
+@container hello (max-width: 730px) {
+    .hello__image {
+        width: 200px;
+        margin-top: 10px;
+    }
+}

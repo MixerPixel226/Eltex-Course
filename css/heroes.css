@@ -1,0 +1,85 @@
+.hero__block {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.hero__item {
+    position: relative;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero__image {
+    position: absolute;
+    bottom: 0;
+    z-index: 99;
+}
+
+.hero__name {
+    background: var(--block-background-color);
+    color: var(--white);
+    padding: 5px 15px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 100;
+}
+
+.hero__desc {
+    padding: 10px;
+    position: relative;
+    z-index: 100;
+    color: var(--secondary-color);
+}
+
+.hero__item.left {
+    border-right: 2px solid var(--secondary-color);
+    padding: 0 100px 0 20px;
+}
+
+.hero__item.left .hero__image {
+    right: 0;
+    height: 100%;
+}
+
+.hero__item.right {
+    padding: 0 20px 0 100px;
+}
+
+.hero__item.right .hero__image {
+    left: -10px;
+    height: 60%;
+    transform: scaleX(-1);
+}
+
+.hero__item::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 100%;
+    transition: width 0.3s;
+}
+
+.hero__item.left::after {
+    right: 0;
+    background: linear-gradient(
+        to right,
+        var(--main-background-color),
+        #d6d597
+    );
+    border-radius: 300px 0 0 300px;
+}
+
+.hero__item.right::after {
+    left: 0;
+    background: linear-gradient(to left, var(--main-background-color), #d6bb97);
+    border-radius: 0 300px 300px 0;
+}
+
+.hero__item:hover::after {
+    width: 200px;
+}
