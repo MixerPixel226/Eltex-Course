@@ -19,10 +19,10 @@
         <link rel="stylesheet" href="css/history.css" />
 
         <link rel="stylesheet" href="css/control.css" />
-        <link rel="stylesheet" href="css/modal-create.css" />
+        <link rel="stylesheet" href="css/modal.css" />
 
+        <script type="module" src="./js/control.js" defer></script>
         <script src="./js/theme.js" defer></script>
-        <script src="./js/control.js" defer></script>
     </head>
 
     <body>
@@ -227,9 +227,27 @@
                                 </div>
                             </article>
                         </li>
+
+                        <template id="template-history">
+                            <li class="histories__item">
+                                <article class="history">
+                                    <div class="history__img">
+                                        <img src="" alt="" />
+                                        <p
+                                            class="history__desc history__desc--hidden"
+                                        ></p>
+                                    </div>
+                                    <div class="history-down">
+                                        <span class="history__number"></span>
+                                        <h3 class="history__title"></h3>
+                                    </div>
+                                </article>
+                            </li>
+                        </template>
                     </ul>
                 </section>
             </main>
+
             <footer>
                 <address>
                     <h2>Помурчите нам!</h2>
@@ -389,7 +407,7 @@
             <div class="modal-create">
                 <div class="modal-create__inner">
                     <h2 class="modal-create__title">Создать статью</h2>
-                    <form method="get">
+                    <form method="get" name="creating">
                         <div>
                             <label for="form-create-title">Заголовок</label>
                             <input
@@ -416,14 +434,13 @@
                                 name="img"
                                 id="form-create-img"
                                 placeholder="Изображение (адрес)"
-                                required
                             />
                         </div>
                         <div class="modal-create__buttons">
                             <button
                                 id="btn-create"
                                 class="button modal-create__btn-add"
-                                type="button"
+                                type="submit"
                             >
                                 Создать
                             </button>
@@ -438,6 +455,31 @@
                     </form>
                 </div>
             </div>
+
+            <dialog id="modal-stats" class="modal">
+                <h2 class="modal-create__title">Статистика</h2>
+                <div class="modal__content">
+                    <div class="stat">
+                        <span>Количество историй: </span>
+                        <div class="amount-history"></div>
+                    </div>
+                    <div class="stat">
+                        <span>Количество комментов: </span>
+                        <div class="amount-comment">0</div>
+                    </div>
+                </div>
+                <button id="closeModal" class="modal__close-modal">
+                    <svg
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 128 128"
+                    >
+                        <path
+                            d="m71.1 64 42.9 42.9-7.1 7.1L64 71.1 21.1 114l-7.1-7.1L56.9 64 14 21.1l7.1-7.1L64 56.9 106.9 14l7.1 7.1z"
+                        />
+                    </svg>
+                </button>
+            </dialog>
         </div>
     </body>
 </html>
