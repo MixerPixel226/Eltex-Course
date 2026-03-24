@@ -12,14 +12,27 @@ class Histories {
             desc: "В то время, как Аню грозятся уволить за сломанный проект, Мяумяф отправляется в компанию, чтобы спасти её карьеру...",
             img: "assets/his2.png",
         },
+        {
+            id: "sfs323d23d2",
+            title: "Кодинг по-кошачьи",
+            desc: "Аня уходит в магазин за продуктами, забывая закрыть проект на компьютере. Любозательный МяуМяф решается дописать код, пока хозяйка не вернулась...",
+            img: "assets/his1.png",
+        },
+        {
+            id: "fdhhsjjunftf4",
+            title: "Кодинг по-кошачьи",
+            desc: "Аня уходит в магазин за продуктами, забывая закрыть проект на компьютере. Любозательный МяуМяф решается дописать код, пока хозяйка не вернулась...",
+            img: "assets/his1.png",
+        },
     ];
 
     addHistory = (history) => {
-        return this.histories.push(history);
+        this.histories.push(history);
     };
 
     deleteHistory = (id) => {
         this.histories = this.histories.filter((el) => el.id !== id);
+        console.log(this.histories);
     };
 
     shapeHistoryObj = (title, desc, img) => {

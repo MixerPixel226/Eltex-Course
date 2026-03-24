@@ -34,6 +34,10 @@
     gap: 20px;
 }
 
+.history {
+    position: relative;
+}
+
 .history-down {
     padding: 10px 0;
     gap: 10px;
@@ -67,7 +71,6 @@
     bottom: -100%;
     width: 100%;
     left: 0;
-    z-index: 99;
     transition: bottom 0.3s;
     background-color: var(--main-opacity-color);
 }
@@ -89,6 +92,7 @@
     width: 100%;
     object-fit: cover;
     display: block;
+    pointer-events: none;
 }
 
 .history__link {
@@ -96,6 +100,31 @@
     width: max-content;
     margin: 30px auto 0;
     text-align: center;
+}
+
+.history:hover .history__delete {
+    visibility: visible;
+}
+
+.history__delete {
+    position: absolute;
+    visibility: hidden;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.475);
+    border-radius: 10px;
+    padding: 5px;
+    top: 10px;
+    right: 10px;
+    color: rgb(219, 219, 219);
+    transition:
+        transform 0.3s,
+        color 0.3s;
+}
+
+.history__delete:hover {
+    transform: scale(1.1);
+    color: rgb(211, 51, 86);
 }
 
 @container histories (min-width: 800px) {
