@@ -13,33 +13,35 @@ const closeModal = document.querySelector("#closeModal");
 
 const template = document.querySelector("#template-history");
 
-const historiesList = document.querySelector(".histories__ul--blog");
+const historiesList = document.querySelector(".histories__ul");
 
-btnOpenModalCreate.addEventListener("click", () => {
+const emptyHistoryBlock = document.querySelector("#emptyHistory");
+
+btnOpenModalCreate?.addEventListener("click", () => {
     modalCreate.classList.add("modal-create--visiable");
 });
 
 const histories = document.getElementsByClassName("history");
 
-btnOpenModalStats.addEventListener("click", () => {
+btnOpenModalStats?.addEventListener("click", () => {
     modalStats.querySelector(".amount-history").textContent = histories.length;
     modalStats.showModal();
 });
 
-modalStats.addEventListener("click", (event) => {
+modalStats?.addEventListener("click", (event) => {
     if (event.target === modalStats) modalStats.close();
 });
 
-closeModal.addEventListener("click", () => {
+closeModal?.addEventListener("click", () => {
     modalStats.close();
 });
 
-btnCancelModal.addEventListener("click", () => {
+btnCancelModal?.addEventListener("click", () => {
     modalCreate.classList.remove("modal-create--visiable");
     formCreating.reset();
 });
 
-formCreating.addEventListener("submit", (event) => {
+formCreating?.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const title = formCreating.title.value;
@@ -48,6 +50,8 @@ formCreating.addEventListener("submit", (event) => {
 
     const newHistory = myHistories.shapeHistoryObj(title, desc, img);
     myHistories.addHistory(newHistory);
+
+    visibleEmpty();
 
     let elementHistory = shapingElement(newHistory);
     historiesList.append(elementHistory);
@@ -70,20 +74,41 @@ const shapingElement = (history) => {
     return templHis;
 };
 
-const outputList = () => {
+const visibleEmpty = () => {
     const histories = myHistories.histories;
 
-    histories.forEach((history) => {
-        historiesList.append(shapingElement(history));
-    });
+    if (histories.length > 0) {
+        emptyHistoryBlock.setAttribute("hidden", "");
+    } else {
+        emptyHistoryBlock.removeAttribute("hidden");
+    }
+};
+
+const outputList = (amount = null) => {
+    const histories = myHistories.histories;
+
+    if (!histories) return;
+    visibleEmpty();
+
+    const amountElements =
+        amount && amount <= histories.length ? amount : histories.length;
+
+    for (let i = 0; i < amountElements; i++) {
+        historiesList.append(shapingElement(histories[i]));
+    }
 };
 
 historiesList.addEventListener("click", (event) => {
     if (event.target.closest(".history__delete")) {
         const history = event.target.closest(".histories__item");
         myHistories.deleteHistory(history.dataset.id);
+        visibleEmpty();
         history.remove();
     }
 });
 
-outputList();
+if (location.pathname.includes("blog")) {
+    outputList();
+} else {
+    outputList(2);
+}
