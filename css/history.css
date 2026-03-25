@@ -162,3 +162,13 @@
         display: none;
     }
 }
+
+.histories__empty {
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--block-background-color);
+    border-radius: 20px;
+}
