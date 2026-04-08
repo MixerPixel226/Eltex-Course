@@ -1,0 +1,14 @@
+<section class="roles">
+  <h2>В ролях</h2>
+  <ul class="roles__list">
+    @for (role of roles; track $index) {
+      <li>
+        <article class="roles__item">
+          <img class="roles__img" [src]="role.href" alt="Райан Гослинг" loading="lazy" />
+          <h3 class="roles__name">{{ role.name }}</h3>
+          <p class="roles__desc">{{ role.desc }}</p>
+        </article>
+      </li>
+    }
+  </ul>
+</section>
