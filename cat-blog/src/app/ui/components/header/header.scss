@@ -1,0 +1,81 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px;
+  height: 100px;
+  align-items: center;
+  width: 100%;
+
+  &__title {
+    font-family: 'Fun Font';
+    font-size: 25px;
+    -webkit-text-stroke: 1px var(--block-background-color);
+    color: var(--accent-color);
+  }
+
+  &__btn-theme {
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.nav {
+  &__ul {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__svg-main {
+    width: 18px;
+    height: 18px;
+    transition: color 0.3s;
+  }
+
+  &__svg-sec {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    right: -12px;
+    top: -3px;
+    display: block;
+    color: transparent;
+    transition: color 0.3s;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    position: relative;
+    transition: 0.3s;
+    gap: 5px;
+
+    &:visited {
+      color: var(--grey-color);
+    }
+
+    &:hover > svg {
+      color: var(--main-color);
+    }
+
+    &:hover {
+      color: var(--main-color);
+    }
+
+    &:active > svg {
+      color: var(--main-color);
+    }
+  }
+}
