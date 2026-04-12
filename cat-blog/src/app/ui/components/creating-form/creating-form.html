@@ -1,0 +1,20 @@
+<form class="creating-form" [formGroup]="creatingForm" (ngSubmit)="onSubmitCreating()">
+  <div class="creating-form__block">
+    <label for="form-create-title">Заголовок</label>
+    <input type="text" formControlName="title" placeholder="Заголовок" />
+  </div>
+  <div class="creating-form__block">
+    <label for="form-create-desc">Текст статьи</label>
+    <textarea formControlName="desc" placeholder="Текст статьи"></textarea>
+  </div>
+  <div class="creating-form__block">
+    <label for="form-create-img">Изображение</label>
+    <input type="text" formControlName="img" placeholder="Изображение (адрес)" />
+  </div>
+  <div class="creating-form__buttons">
+    <button id="btn-create" class="button btn-add" type="submit">Создать</button>
+    <button id="btn-cancel" class="button btn-cancel" type="button" (click)="onCancel()">
+      Отмена
+    </button>
+  </div>
+</form>

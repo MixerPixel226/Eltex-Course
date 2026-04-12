@@ -1,0 +1,8 @@
+<div class="modal">
+  <div class="modal__inner">
+    @if (header()) {
+      <h2 class="modal__title">{{ header() }}</h2>
+    }
+    <ng-content></ng-content>
+  </div>
+</div>

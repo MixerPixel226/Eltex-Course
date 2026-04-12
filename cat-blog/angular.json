@@ -23,6 +23,7 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
+            "baseHref": "/Eltex-Course/",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
@@ -30,17 +31,13 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
+            "styles": ["src/styles.scss"],
+
             "security": {
               "allowedHosts": []
             },
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "ssr": false,
+            "prerender": false
           },
           "configurations": {
             "production": {
@@ -80,6 +77,13 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "name": "Max",
+            "email": "maxuswill@yandex.ru"
+          }
         }
       }
     }
