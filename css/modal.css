@@ -15,6 +15,11 @@
         visibility 0s linear 0.3s;
 }
 
+.modal-create fieldset {
+    border: none;
+    padding: 0;
+}
+
 .modal-create--visiable {
     visibility: visible;
     opacity: 1;
@@ -93,6 +98,18 @@
 
 .modal-create__btn-cancel:hover {
     background: #a8525d;
+}
+
+.modal-create button:disabled {
+    cursor: default;
+}
+
+.modal-create__btn-cancel:disabled {
+    background: #a3a3a3;
+}
+
+.modal-create__btn-cancel:disabled:hover {
+    background: #a3a3a3;
 }
 
 .modal {
