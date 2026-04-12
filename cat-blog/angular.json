@@ -25,6 +25,7 @@
             "tsConfig": "tsconfig.app.json",
             "baseHref": "/Eltex-Course/",
             "inlineStyleLanguage": "scss",
+            "externalDependencies": ["assets/*"],
             "assets": [
               {
                 "glob": "**/*",

@@ -10,10 +10,10 @@ import { RouterLink } from '@angular/router';
 })
 export class Histories {
   public histories = [
-    { id: 'sdfsdfsdf', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: '/assets/no-image.png' },
-    { id: 'sdfsdsdsdfsdf', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: '/assets/no-image.png' },
-    { id: 'sAadfsdfsdf', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: '/assets/no-image.png' },
-    { id: 'sdfsdfsdfdsd', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: '/assets/no-image.png' },
+    { id: 'sdfsdfsdf', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: 'assets/no-image.png' },
+    { id: 'sdfsdsdsdfsdf', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: 'assets/no-image.png' },
+    { id: 'sAadfsdfsdf', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: 'assets/no-image.png' },
+    { id: 'sdfsdfsdfdsd', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: 'assets/no-image.png' },
   ];
 
   public fullBlog = input<Boolean>(true);
