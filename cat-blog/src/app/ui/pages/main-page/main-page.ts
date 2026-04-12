@@ -8,8 +8,8 @@ import { Histories } from '../../components/histories/histories';
 @Component({
   selector: 'app-main-page',
   imports: [Hello, Heroes, Roles, Gallery, Histories],
-  templateUrl: './MainPage.html',
-  styleUrl: './MainPage.scss',
+  templateUrl: './main-page.html',
+  styleUrl: './main-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainPage {}

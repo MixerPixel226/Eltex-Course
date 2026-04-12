@@ -8,8 +8,8 @@ import { Stats } from '../../components/stats/stats';
 @Component({
   selector: 'app-blog-page',
   imports: [Histories, ControlPanel, CreatingForm, Modal, Stats],
-  templateUrl: './BlogPage.html',
-  styleUrl: './BlogPage.scss',
+  templateUrl: './blog-page.html',
+  styleUrl: './blog-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BlogPage {
