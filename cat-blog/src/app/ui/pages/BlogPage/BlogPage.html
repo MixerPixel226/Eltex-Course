@@ -1,0 +1,16 @@
+<app-histories [fullBlog]="true"></app-histories>
+<app-control-panel
+  (onOpenCreatingModal)="openModalCreating()"
+  (onOpenStatsModal)="openModalStats()"
+></app-control-panel>
+@if (creatingModalOpen()) {
+  <app-modal header="Создать статью">
+    <app-creating-form (onCancelModal)="cancelModalCreating()"></app-creating-form>
+  </app-modal>
+}
+
+@if (statsModalOpen()) {
+  <app-modal header="Статистика">
+    <app-stats (onCancelModal)="cancelModalStats()"></app-stats>
+  </app-modal>
+}

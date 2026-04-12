@@ -1,0 +1,25 @@
+.slide-in {
+  animation: slide-in 300ms ease-in;
+}
+
+.slide-out {
+  animation: slide-out 500ms ease-in;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
