@@ -1,0 +1,38 @@
+<div class="blog-control">
+  <ul class="blog-control__list">
+    <li class="blog-control__item">
+      <button
+        class="blog-control__btn blog-control__btn_add"
+        title="Создать историю"
+        (click)="openCreatingModal()"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor">
+          <g data-name="Layer 2">
+            <path
+              d="M16 29a13 13 0 1 1 13-13 13 13 0 0 1-13 13m0-24a11 11 0 1 0 11 11A11 11 0 0 0 16 5"
+            />
+            <path d="M16 23a1 1 0 0 1-1-1V10a1 1 0 0 1 2 0v12a1 1 0 0 1-1 1" />
+            <path d="M22 17H10a1 1 0 0 1 0-2h12a1 1 0 0 1 0 2" />
+          </g>
+          <path d="M0 0h32v32H0z" style="fill: none" />
+        </svg>
+      </button>
+    </li>
+    <li class="blog-control__item">
+      <button
+        class="blog-control__btn blog-control__btn_stats"
+        title="Статистика"
+        (click)="openStatsModal()"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M18 23H6a5 5 0 0 1-5-5V6a5 5 0 0 1 5-5h12a5 5 0 0 1 5 5v12a5 5 0 0 1-5 5M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3Z"
+          />
+          <path
+            d="M12 18a1 1 0 0 1-1-1v-4a1 1 0 0 1 2 0v4a1 1 0 0 1-1 1M7 18a1 1 0 0 1-1-1V9a1 1 0 0 1 2 0v8a1 1 0 0 1-1 1M17 18a1 1 0 0 1-1-1V7a1 1 0 0 1 2 0v10a1 1 0 0 1-1 1"
+          />
+        </svg>
+      </button>
+    </li>
+  </ul>
+</div>
