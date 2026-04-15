@@ -21,6 +21,8 @@
         <link rel="stylesheet" href="css/control.css" />
         <link rel="stylesheet" href="css/modal.css" />
 
+        <link rel="stylesheet" href="css/loader.css" />
+
         <script type="module" src="./js/control.js" defer></script>
         <script src="./js/theme.js" defer></script>
     </head>
@@ -127,8 +129,14 @@
                         коллекцией историй. Новая история выходит каждый четверг
                         раз в год или около того.
                     </div>
-                    <div id="emptyHistory" class="histories__empty">
+                    <div id="emptyHistory" class="histories__empty" hidden>
                         Нет историй
+                    </div>
+                    <div
+                        id="loaderHistory"
+                        class="loader-container loader-block"
+                    >
+                        <span class="loader"></span>
                     </div>
                     <ul class="histories__ul histories__ul--blog"></ul>
 
@@ -333,50 +341,57 @@
                 <div class="modal-create__inner">
                     <h2 class="modal-create__title">Создать статью</h2>
                     <form method="get" name="creating">
-                        <div>
-                            <label for="form-create-title">Заголовок</label>
-                            <input
-                                type="text"
-                                name="title"
-                                id="form-create-title"
-                                placeholder="Заголовок"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label for="form-create-desc">Текст статьи</label>
-                            <textarea
-                                id="form-create-desc"
-                                name="desc"
-                                placeholder="Текст статьи"
-                                required
-                            ></textarea>
-                        </div>
-                        <div>
-                            <label for="form-create-img">Изображение</label>
-                            <input
-                                type="text"
-                                name="img"
-                                id="form-create-img"
-                                placeholder="Изображение (адрес)"
-                            />
-                        </div>
-                        <div class="modal-create__buttons">
-                            <button
-                                id="btn-create"
-                                class="button modal-create__btn-add"
-                                type="submit"
-                            >
-                                Создать
-                            </button>
-                            <button
-                                id="btn-cancel"
-                                class="button modal-create__btn-cancel"
-                                type="button"
-                            >
-                                Отмена
-                            </button>
-                        </div>
+                        <fieldset id="creatingFields">
+                            <div>
+                                <label for="form-create-title">Заголовок</label>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    id="form-create-title"
+                                    placeholder="Заголовок"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label for="form-create-desc"
+                                    >Текст статьи</label
+                                >
+                                <textarea
+                                    id="form-create-desc"
+                                    name="desc"
+                                    placeholder="Текст статьи"
+                                    required
+                                ></textarea>
+                            </div>
+                            <div>
+                                <label for="form-create-img">Изображение</label>
+                                <input
+                                    type="text"
+                                    name="img"
+                                    id="form-create-img"
+                                    placeholder="Изображение (адрес)"
+                                />
+                            </div>
+                            <div class="modal-create__buttons">
+                                <button
+                                    id="btn-create"
+                                    class="button modal-create__btn-add"
+                                    type="submit"
+                                >
+                                    <span>Создать</span>
+                                    <div hidden class="loader-container">
+                                        <span class="loader loader-btn"></span>
+                                    </div>
+                                </button>
+                                <button
+                                    id="btn-cancel"
+                                    class="button modal-create__btn-cancel"
+                                    type="button"
+                                >
+                                    Отмена
+                                </button>
+                            </div>
+                        </fieldset>
                     </form>
                 </div>
             </div>

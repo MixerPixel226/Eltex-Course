@@ -17,6 +17,8 @@ const historiesList = document.querySelector(".histories__ul");
 
 const emptyHistoryBlock = document.querySelector("#emptyHistory");
 
+const creatingFields = document.querySelector("#creatingFields");
+
 btnOpenModalCreate?.addEventListener("click", () => {
     modalCreate.classList.add("modal-create--visiable");
 });
@@ -27,6 +29,16 @@ btnOpenModalStats?.addEventListener("click", () => {
     modalStats.querySelector(".amount-history").textContent = histories.length;
     modalStats.showModal();
 });
+
+const loaderHistory = document.querySelector("#loaderHistory");
+
+const timePromise = () => {
+    return new Promise((resolve) => setTimeout(resolve, 2000));
+};
+
+const loader = async () => {
+    await timePromise();
+};
 
 modalStats?.addEventListener("click", (event) => {
     if (event.target === modalStats) modalStats.close();
@@ -44,20 +56,34 @@ btnCancelModal?.addEventListener("click", () => {
 formCreating?.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const title = formCreating.title.value;
-    const desc = formCreating.desc.value;
-    const img = formCreating.img.value || "assets/no-image.png";
+    const textBtn = event.target.querySelector(".modal-create__btn-add > span");
+    const loaderBtn = event.target.querySelector(
+        ".modal-create__btn-add > .loader-container",
+    );
 
-    const newHistory = myHistories.shapeHistoryObj(title, desc, img);
-    myHistories.addHistory(newHistory);
+    textBtn.hidden = true;
+    loaderBtn.hidden = false;
 
-    visibleEmpty();
+    creatingFields.setAttribute("disabled", "");
 
-    let elementHistory = shapingElement(newHistory);
-    historiesList.append(elementHistory);
+    loader().then(() => {
+        const title = formCreating.title.value;
+        const desc = formCreating.desc.value;
+        const img = formCreating.img.value || "assets/no-image.png";
+        const newHistory = myHistories.shapeHistoryObj(title, desc, img);
+        myHistories.addHistory(newHistory);
 
-    modalCreate.classList.remove("modal-create--visiable");
-    formCreating.reset();
+        visibleEmpty();
+        let elementHistory = shapingElement(newHistory);
+        historiesList.append(elementHistory);
+        modalCreate.classList.remove("modal-create--visiable");
+        formCreating.reset();
+
+        creatingFields.removeAttribute("disabled");
+
+        textBtn.hidden = false;
+        loaderBtn.hidden = true;
+    });
 });
 
 const shapingElement = (history) => {
@@ -108,7 +134,12 @@ historiesList.addEventListener("click", (event) => {
 });
 
 if (location.pathname.includes("blog")) {
-    outputList();
+    loader().then(() => {
+        (outputList(), loaderHistory.setAttribute("hidden", ""));
+    });
 } else {
-    outputList(2);
+    loader().then(() => {
+        outputList(2);
+        loaderHistory.setAttribute("hidden", "");
+    });
 }
