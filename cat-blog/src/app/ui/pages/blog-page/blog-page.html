@@ -1,16 +1,26 @@
-<app-histories [fullBlog]="true"></app-histories>
+<app-histories
+  [histories]="histories()"
+  (onEdit)="handleEditHis($event)"
+  (onDelete)="deleteHistory($event)"
+></app-histories>
+
 <app-control-panel
-  (onOpenCreatingModal)="openModalCreating()"
-  (onOpenStatsModal)="openModalStats()"
+  (onOpenCreatingModal)="modalCreatingFormOpen(true)"
+  (onOpenStatsModal)="modalStatsOpen(true)"
 ></app-control-panel>
 @if (creatingModalOpen()) {
-  <app-modal header="Создать статью">
-    <app-creating-form (onCancelModal)="cancelModalCreating()"></app-creating-form>
+  <app-modal [header]="editingHistory().id ? 'Редактировать статью' : 'Создать статью'">
+    <app-creating-form
+      [(formObj)]="editingHistory"
+      (onCancelModal)="modalCreatingFormOpen(false)"
+      (onCreate)="addHistory($event)"
+      (onEdit)="editHistory($event)"
+    ></app-creating-form>
   </app-modal>
 }
 
 @if (statsModalOpen()) {
   <app-modal header="Статистика">
-    <app-stats (onCancelModal)="cancelModalStats()"></app-stats>
+    <app-stats [countHis]="countHistories()" (onCancelModal)="modalStatsOpen(false)"></app-stats>
   </app-modal>
 }

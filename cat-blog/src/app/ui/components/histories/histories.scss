@@ -102,29 +102,42 @@
   text-align: center;
 }
 
-.history:hover .history__delete {
+.history:hover .history__btn {
   visibility: visible;
 }
 
-.history__delete {
-  position: absolute;
-  visibility: hidden;
+.history__btn {
   width: 40px;
   height: 40px;
   background: rgba(0, 0, 0, 0.475);
-  border-radius: 10px;
-  padding: 5px;
-  top: 10px;
-  right: 10px;
   color: rgb(219, 219, 219);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
   transition:
     transform 0.3s,
     color 0.3s;
 }
 
+.history__buttons {
+  position: absolute;
+  display: flex;
+  gap: 10px;
+  visibility: hidden;
+  top: 10px;
+  right: 10px;
+}
+
 .history__delete:hover {
   transform: scale(1.1);
   color: rgb(211, 51, 86);
+}
+
+.history__edit:hover {
+  transform: scale(1.1);
+  color: rgb(51, 126, 211);
 }
 
 @media (min-width: 800px) {

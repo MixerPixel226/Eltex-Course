@@ -1,5 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
+interface History {
+  id: string;
+  title: string;
+  desc: string;
+  img: string;
+}
 
 @Component({
   selector: 'app-histories',
@@ -9,16 +16,21 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Histories {
-  public histories = [
-    { id: 'sdfsdfsdf', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: 'assets/no-image.png' },
-    { id: 'sdfsdsdsdfsdf', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: 'assets/no-image.png' },
-    { id: 'sAadfsdfsdf', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: 'assets/no-image.png' },
-    { id: 'sdfsdfsdfdsd', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: 'assets/no-image.png' },
-  ];
+  public histories = input<History[]>([]);
 
   public fullBlog = input<Boolean>(true);
+  public onDelete = output<string>();
+  public onEdit = output<string>();
 
-  public filterHistory = computed(() => {
+  deleteHis(id: string) {
+    this.onDelete.emit(id);
+  }
+
+  editHis(id: string) {
+    this.onEdit.emit(id);
+  }
+
+  /*public filterHistory = computed(() => {
     return this.fullBlog() ? this.histories : this.histories.slice(2);
-  });
+  });*/
 }

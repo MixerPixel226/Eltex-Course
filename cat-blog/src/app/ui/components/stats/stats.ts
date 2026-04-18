@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-stats',
@@ -8,6 +8,7 @@ import { ChangeDetectionStrategy, Component, output } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Stats {
+  public countHis = input<number>(0);
   public onCancelModal = output<void>();
 
   onCancel() {
