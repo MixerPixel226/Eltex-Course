@@ -1,18 +1,70 @@
-<form class="creating-form" [formGroup]="creatingForm" (ngSubmit)="onSubmitCreating()">
+<form class="creating-form" [formGroup]="creatingForm" (ngSubmit)="onSubmit()">
   <div class="creating-form__block">
-    <label for="form-create-title">Заголовок</label>
-    <input type="text" formControlName="title" placeholder="Заголовок" />
+    <label for="form-create-title">Заголовок<span>*</span></label>
+    <input
+      type="text"
+      formControlName="title"
+      placeholder="Заголовок"
+      [class.invalid]="creatingForm.controls.title.touched && creatingForm.controls.title.invalid"
+    />
+    @if (creatingForm.controls.title.invalid) {
+      <div class="creating-form__errors">
+        @if (
+          creatingForm.controls.title.hasError('required') && creatingForm.controls.title.touched
+        ) {
+          <span>обязательно</span>
+        }
+
+        @if (
+          creatingForm.controls.title.hasError('minlength') && creatingForm.controls.title.dirty
+        ) {
+          <span>min 25</span>
+        }
+      </div>
+    }
   </div>
+
   <div class="creating-form__block">
-    <label for="form-create-desc">Текст статьи</label>
-    <textarea formControlName="desc" placeholder="Текст статьи"></textarea>
+    <label for="form-create-desc">Текст статьи<span>*</span></label>
+    <textarea
+      formControlName="desc"
+      placeholder="Текст статьи"
+      [class.invalid]="creatingForm.controls.desc.touched && creatingForm.controls.desc.invalid"
+    ></textarea>
+    @if (creatingForm.controls.desc.invalid) {
+      <div class="creating-form__errors">
+        @if (
+          creatingForm.controls.desc.hasError('required') && creatingForm.controls.desc.touched
+        ) {
+          <span>Обязательно</span>
+        }
+      </div>
+    }
   </div>
   <div class="creating-form__block">
     <label for="form-create-img">Изображение</label>
     <input type="text" formControlName="img" placeholder="Изображение (адрес)" />
   </div>
   <div class="creating-form__buttons">
-    <button id="btn-create" class="button btn-add" type="submit">Создать</button>
+    @if (formObj().id) {
+      <button
+        id="btn-create"
+        class="button btn-submit btn-edit"
+        type="submit"
+        [disabled]="creatingForm.invalid"
+      >
+        Изменить
+      </button>
+    } @else {
+      <button
+        id="btn-create"
+        class="button btn-submit btn-edit"
+        type="submit"
+        [disabled]="creatingForm.invalid"
+      >
+        Создать
+      </button>
+    }
     <button id="btn-cancel" class="button btn-cancel" type="button" (click)="onCancel()">
       Отмена
     </button>
