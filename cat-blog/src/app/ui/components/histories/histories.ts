@@ -22,11 +22,11 @@ export class Histories {
   public onDelete = output<string>();
   public onEdit = output<string>();
 
-  deleteHis(id: string) {
+  protected deleteHis(id: string) {
     this.onDelete.emit(id);
   }
 
-  editHis(id: string) {
+  protected editHis(id: string) {
     this.onEdit.emit(id);
   }
 

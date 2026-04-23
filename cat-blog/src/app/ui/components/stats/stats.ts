@@ -11,7 +11,7 @@ export class Stats {
   public countHis = input<number>(0);
   public onCancelModal = output<void>();
 
-  onCancel() {
+  protected onCancel() {
     this.onCancelModal.emit();
   }
 }

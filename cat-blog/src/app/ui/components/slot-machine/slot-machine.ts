@@ -11,13 +11,12 @@ import { Confetti } from '../confetti/confetti';
 })
 export class SlotMachineComponent {
   @ViewChildren(SpinnerComponent) spinners!: QueryList<SpinnerComponent>;
-  scoreService = inject(ScoreService);
+  public scoreService = inject(ScoreService);
 
-  winner: boolean | null = null;
-  loserMessage = '';
-  matches: number[] = [];
+  public winner: boolean | null = null;
+  private matches: number[] = [];
 
-  myIcons = [
+  public myIcons = [
     'assets/slots/slot1.png',
     'assets/slots/slot2.png',
     'assets/slots/slot3.png',
@@ -27,7 +26,7 @@ export class SlotMachineComponent {
 
   readonly timers = [1000, 1400, 2200];
 
-  spinning = false;
+  private spinning = false;
 
   handleRepeat() {
     if (this.spinning) return;

@@ -13,11 +13,11 @@ export class ScoreService {
     });
   }
 
-  payByScore(amount: number) {
+  public payByScore(amount: number) {
     this._score.update((prev) => (prev ?? 0) - amount);
   }
 
-  plusScore(amount: number) {
+  public plusScore(amount: number) {
     this._score.update((prev) => (prev ?? 0) + amount);
   }
 }

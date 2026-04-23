@@ -11,11 +11,11 @@ export class ControlPanel {
   public onOpenCreatingModal = output<void>();
   public onOpenStatsModal = output<void>();
 
-  openCreatingModal() {
+  protected openCreatingModal() {
     this.onOpenCreatingModal.emit();
   }
 
-  openStatsModal() {
+  protected openStatsModal() {
     this.onOpenStatsModal.emit();
   }
 }

@@ -38,7 +38,7 @@ export class CreatingForm {
     });
   }
 
-  onSubmit() {
+  protected onSubmit() {
     if (this.creatingForm.valid) {
       const id = this.formObj().id;
       const formData = this.creatingForm.getRawValue();
@@ -59,7 +59,7 @@ export class CreatingForm {
     }
   }
 
-  onCancel() {
+  protected onCancel() {
     this.formObj.set({ title: '', desc: '', img: '' });
     this.onCancelModal.emit();
   }
