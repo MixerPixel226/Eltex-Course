@@ -1,0 +1,10 @@
+<div class="spinner-viewport">
+  <div #strip class="icons-strip">
+    @for (icon of extendedIcons; track $index) {
+      <div class="icon-wrapper">
+        <img [src]="icon" class="slot-icon" />
+      </div>
+    }
+  </div>
+  <div class="spinner-viewport"></div>
+</div>
