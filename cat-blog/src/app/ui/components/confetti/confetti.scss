@@ -17,12 +17,10 @@
     opacity: 0;
     transform: translate(-3000px, 0);
   }
-
   75% {
     opacity: 1;
     transform: translate(20px, 0);
   }
-
   100% {
     opacity: 1;
     transform: translate(0, 0);
@@ -43,17 +41,17 @@
 }
 
 $elementCount: 50;
+$animationVariations: 6;
 $colors: (#03a561, #00a4ff, #f04813, #ff04d2, #fed500);
 $shapes: (0, 1, 2);
 
 @for $i from 0 through $elementCount {
   $w: random(18);
-  $l: random(175);
+  $shape: nth($shapes, random(3));
+  $color: nth($colors, random(5));
 
   .confetti-left-#{$i},
   .confetti-right-#{$i} {
-    $shape: nth($shapes, random(3));
-    $color: nth($colors, random(5));
     @if ($shape==0) {
       width: #{$w * 0.6}px;
       height: #{$w * 0.6}px;
@@ -77,138 +75,109 @@ $shapes: (0, 1, 2);
     opacity: 0;
     transform: translate(0px, 0px) rotate(0deg);
   }
+
+  $animIndex: $i % $animationVariations;
+  $duration: unquote(1 + random() + 's');
+  $delay: unquote(0.45 + random() + 's');
+
   .confetti-left-#{$i} {
-    animation: drop-left-#{$i} unquote(1 + random() + 's') unquote(0.45 + random() + 's') forwards;
+    animation: drop-left-#{$animIndex} $duration $delay forwards;
   }
   .confetti-right-#{$i} {
-    animation: drop-right-#{$i} unquote(1 + random() + 's') unquote(0.45 + random() + 's') forwards;
+    animation: drop-right-#{$animIndex} $duration $delay forwards;
   }
-  @keyframes drop-left-#{$i} {
+}
+
+@for $k from 0 to $animationVariations {
+  @keyframes drop-left-#{$k} {
     $rot: random(360);
     $val: random(10) / 4;
     $opacity: random() + 0.5;
-    0.0000% {
-      transform: translate(#{$val * 0}px, #{$val * 0}px) rotate(#{$rot}deg);
+
+    0% {
+      transform: translate(0px, 0px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    10.7882% {
+    10.7% {
       transform: translate(#{$val * 12.6}px, -#{$val * 30}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    21.2266% {
+    21.2% {
       transform: translate(#{$val * 28}px, -#{$val * 57.6}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    30.4208% {
+    30.4% {
       transform: translate(#{$val * 46.1}px, -#{$val * 78.7}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    34.4519% {
-      transform: translate(#{$val * 56.2}px, -#{$val * 85.6}px) rotate(#{$rot}deg);
-      opacity: $opacity;
-    }
-    38.2085% {
+    38.2% {
       transform: translate(#{$val * 66.9}px, -#{$val * 89.4}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    41.9607% {
-      transform: translate(#{$val * 78.2}px, -#{$val * 89.6}px) rotate(#{$rot}deg);
-      opacity: $opacity;
-    }
-
-    46.1202% {
+    46.1% {
       transform: translate(#{$val * 90.2}px, -#{$val * 85.8}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-
-    51.1287% {
-      transform: translate(#{$val * 102.8}px, -#{$val * 77.4}px) rotate(#{$rot}deg);
-      opacity: $opacity;
-    }
-
-    57.3654% {
+    57.3% {
       transform: translate(#{$val * 116}px, -#{$val * 64}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-
-    65.1344% {
-      transform: translate(#{$val * 129.9}px, -#{$val * 45}px) rotate(#{$rot}deg);
-      opacity: $opacity;
-    }
-
-    74.6872% {
+    74.6% {
       transform: translate(#{$val * 144.3}px, -#{$val * 20}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-
-    86.2425% {
+    86.2% {
       transform: translate(#{$val * 159.4}px, #{$val * 11.5}px) rotate(#{$rot}deg);
       opacity: $opacity * 0.5;
     }
-
-    100.0000% {
+    100% {
       transform: translate(#{$val * 175}px, #{$val * 50}px) rotate(#{$rot}deg);
       opacity: 0;
     }
   }
 
-  @keyframes drop-right-#{$i} {
+  @keyframes drop-right-#{$k} {
     $rot: random(360);
     $val: random(10) / 4;
     $opacity: random() + 0.5;
-    0.0000% {
-      transform: translate(#{$val * 0}px, #{$val * 0}px) rotate(#{$rot}deg);
+
+    0% {
+      transform: translate(0px, 0px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    10.7882% {
+    10.7% {
       transform: translate(-#{$val * 12.6}px, -#{$val * 30}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    21.2266% {
+    21.2% {
       transform: translate(-#{$val * 28}px, -#{$val * 57.6}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    30.4208% {
+    30.4% {
       transform: translate(-#{$val * 46.1}px, -#{$val * 78.7}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    34.4519% {
-      transform: translate(-#{$val * 56.2}px, -#{$val * 85.6}px) rotate(#{$rot}deg);
-      opacity: $opacity;
-    }
-    38.2085% {
+    38.2% {
       transform: translate(-#{$val * 66.9}px, -#{$val * 89.4}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    41.9607% {
-      transform: translate(-#{$val * 78.2}px, -#{$val * 89.6}px) rotate(#{$rot}deg);
-      opacity: $opacity;
-    }
-    46.1202% {
+    46.1% {
       transform: translate(-#{$val * 90.2}px, -#{$val * 85.8}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    51.1287% {
-      transform: translate(-#{$val * 102.8}px, -#{$val * 77.4}px) rotate(#{$rot}deg);
-      opacity: $opacity;
-    }
-    57.3654% {
+    57.3% {
       transform: translate(-#{$val * 116}px, -#{$val * 64}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    65.1344% {
-      transform: translate(-#{$val * 129.9}px, -#{$val * 45}px) rotate(#{$rot}deg);
-      opacity: $opacity;
-    }
-    74.6872% {
+    74.6% {
       transform: translate(-#{$val * 144.3}px, -#{$val * 20}px) rotate(#{$rot}deg);
       opacity: $opacity;
     }
-    86.2425% {
+    86.2% {
       transform: translate(-#{$val * 159.4}px, #{$val * 11.5}px) rotate(#{$rot}deg);
       opacity: $opacity * 0.5;
     }
-    100.0000% {
+    100% {
       transform: translate(-#{$val * 175}px, #{$val * 50}px) rotate(#{$rot}deg);
       opacity: 0;
     }
