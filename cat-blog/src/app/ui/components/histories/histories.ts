@@ -1,12 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
-interface History {
-  id: string;
-  title: string;
-  desc: string;
-  img: string;
-}
+import { History } from '../../../types/history.interface';
+import { ELEMENTS_PAGE } from '../../../services/history/history.config';
 
 @Component({
   selector: 'app-histories',
@@ -17,10 +12,24 @@ interface History {
 })
 export class Histories {
   public histories = input<History[]>([]);
+  public totalHistories = input<number>(0);
+  public currentPage = input<number>(0);
 
-  public fullBlog = input<Boolean>(true);
+  public pages = computed(() =>
+    this.totalHistories() ? Math.ceil(this.totalHistories() / ELEMENTS_PAGE) : 0,
+  );
+
+  public pagesArray = computed(() => Array.from({ length: this.pages() }, (_, i) => i + 1));
+
+  public fullBlog = input<boolean>(true);
+
   public onDelete = output<string>();
   public onEdit = output<string>();
+  public onChangePage = output<number>();
+
+  protected handleChangePage(page: number) {
+    this.onChangePage.emit(page);
+  }
 
   protected deleteHis(id: string) {
     this.onDelete.emit(id);
@@ -29,8 +38,4 @@ export class Histories {
   protected editHis(id: string) {
     this.onEdit.emit(id);
   }
-
-  /*public filterHistory = computed(() => {
-    return this.fullBlog() ? this.histories : this.histories.slice(2);
-  });*/
 }

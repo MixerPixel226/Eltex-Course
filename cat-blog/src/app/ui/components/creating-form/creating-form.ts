@@ -1,12 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, input, model, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-interface FormHistory {
-  id?: string;
-  title: string;
-  desc: string;
-  img: string;
-}
+import { History, FormCreate } from '../../../types/history.interface';
 
 @Component({
   selector: 'app-creating-form',
@@ -16,11 +11,11 @@ interface FormHistory {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreatingForm {
-  public formObj = model.required<FormHistory>();
+  public formObj = model.required<FormCreate>();
 
   public onCancelModal = output<void>();
-  public onCreate = output<FormHistory>();
-  public onEdit = output<FormHistory>();
+  public onCreate = output<FormCreate>();
+  public onEdit = output<History>();
 
   public creatingForm = new FormGroup({
     title: new FormControl('', {
