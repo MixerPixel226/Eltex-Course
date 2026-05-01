@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Hello } from '../../components/hello/hello';
 import { Heroes } from '../../components/heroes/heroes';
 import { Roles } from '../../components/roles/roles';
 import { Gallery } from '../../components/gallery/gallery';
 import { Histories } from '../../components/histories/histories';
+import { HistoryStore } from '../../../services/history/history-store';
 
 @Component({
   selector: 'app-main-page',
@@ -11,5 +12,13 @@ import { Histories } from '../../components/histories/histories';
   templateUrl: './main-page.html',
   styleUrl: './main-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [HistoryStore],
 })
-export class MainPage {}
+export class MainPage implements OnInit {
+  public historyStoreService = inject(HistoryStore);
+  public histories = this.historyStoreService.histories;
+
+  ngOnInit(): void {
+    this.historyStoreService.getHistories();
+  }
+}

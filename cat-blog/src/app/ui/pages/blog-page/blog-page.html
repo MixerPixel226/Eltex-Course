@@ -1,15 +1,22 @@
+@let totalHistories = historyStoreService.totalHistories();
+@let currentPage = historyStoreService.currentPage();
+
 <app-histories
   [histories]="histories()"
+  [currentPage]="currentPage"
+  [totalHistories]="totalHistories"
   (onEdit)="handleEditHis($event)"
   (onDelete)="deleteHistory($event)"
+  (onChangePage)="changePage($event)"
 ></app-histories>
 
 <app-control-panel
   (onOpenCreatingModal)="modalCreatingFormOpen(true)"
   (onOpenStatsModal)="modalStatsOpen(true)"
 ></app-control-panel>
+
 @if (creatingModalOpen()) {
-  <app-modal [header]="editingHistory().id ? 'Редактировать статью' : 'Создать статью'">
+  <app-modal [header]="titleForm()">
     <app-creating-form
       [(formObj)]="editingHistory"
       (onCancelModal)="modalCreatingFormOpen(false)"
@@ -21,6 +28,6 @@
 
 @if (statsModalOpen()) {
   <app-modal header="Статистика">
-    <app-stats [countHis]="countHistories()" (onCancelModal)="modalStatsOpen(false)"></app-stats>
+    <app-stats [countHis]="totalHistories" (onCancelModal)="modalStatsOpen(false)"></app-stats>
   </app-modal>
 }

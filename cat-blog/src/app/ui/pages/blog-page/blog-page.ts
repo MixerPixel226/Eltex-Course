@@ -1,23 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { Histories } from '../../components/histories/histories';
 import { ControlPanel } from '../../components/control-panel/control-panel';
 import { CreatingForm } from '../../components/creating-form/creating-form';
 import { Modal } from '../../components/modal/modal';
 import { Stats } from '../../components/stats/stats';
-
-interface History {
-  id: string;
-  title: string;
-  desc: string;
-  img: string;
-}
-
-interface FormHistory {
-  id?: string;
-  title: string;
-  desc: string;
-  img: string;
-}
+import { HistoryStore } from '../../../services/history/history-store';
+import { History, FormCreate } from '../../../types/history.interface';
 
 @Component({
   selector: 'app-blog-page',
@@ -25,44 +20,41 @@ interface FormHistory {
   templateUrl: './blog-page.html',
   styleUrl: './blog-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [HistoryStore],
 })
-export class BlogPage {
-  public creatingModalOpen = signal<Boolean>(false);
-  public statsModalOpen = signal<Boolean>(false);
+export class BlogPage implements OnInit {
+  public creatingModalOpen = signal<boolean>(false);
+  public statsModalOpen = signal<boolean>(false);
 
-  public editingHistory = signal<FormHistory>({ title: '', desc: '', img: '' });
+  public historyStoreService = inject(HistoryStore);
 
-  public histories = signal<History[]>([
-    {
-      id: 'sdfs35dfsdf',
-      title: 'Двадцать пять оттенков кошака',
-      desc: 'sdfsdfsdfsdf',
-      img: 'assets/no-image.png',
-    },
-    { id: 's45Aadfs6dfsdf', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: 'assets/no-image.png' },
-    { id: 'sdfsd7fsd8fdsd', title: 'sadasdsad', desc: 'sdfsdfsdfsdf', img: 'assets/no-image.png' },
-  ]);
-
-  public countHistories = computed(() => {
-    return this.histories().length;
-  });
-
-  addHistory(newHis: any) {
-    const history = {
-      id: crypto.randomUUID(),
-      title: newHis.title,
-      desc: newHis.desc,
-      img: newHis.img || 'assets/no-image.png',
-    };
-    this.histories.update((prev) => [...prev, history]);
+  ngOnInit(): void {
+    this.historyStoreService.getHistories();
   }
 
-  editHistory(objHis: any) {
-    this.histories.update((prev) => prev.map((el) => (el.id === objHis.id ? objHis : el)));
+  public editingHistory = signal<FormCreate>({ title: '', desc: '', img: '' });
+
+  public histories = this.historyStoreService.histories;
+
+  public titleForm = computed(() =>
+    this.editingHistory().id ? 'Редактировать статью' : 'Создать статью',
+  );
+
+  addHistory(objHis: FormCreate) {
+    this.historyStoreService.addHistory(objHis);
+  }
+
+  editHistory(objHis: History) {
+    this.historyStoreService.editingHistory(objHis);
   }
 
   deleteHistory(id: string) {
-    this.histories.update((prev) => prev.filter((e) => e.id !== id));
+    this.historyStoreService.deleteHistory(id);
+  }
+
+  changePage(page: number) {
+    this.historyStoreService.changePage(page);
+    console.log('2');
   }
 
   handleEditHis(id: string) {
@@ -73,11 +65,11 @@ export class BlogPage {
     }
   }
 
-  modalCreatingFormOpen(is: Boolean) {
+  modalCreatingFormOpen(is: boolean) {
     this.creatingModalOpen.set(is);
   }
 
-  modalStatsOpen(is: Boolean) {
+  modalStatsOpen(is: boolean) {
     this.statsModalOpen.set(is);
   }
 }
