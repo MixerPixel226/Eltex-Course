@@ -1,0 +1,20 @@
+<h2>Добавить комментарий</h2>
+<form [formGroup]="commentForm" (ngSubmit)="onSend()" class="comment-form">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Имя</mat-label>
+    <input matInput placeholder="Введите ваше имя" formControlName="username" />
+    @if (commentForm.get('username')?.hasError('required')) {
+      <mat-error> Имя обязательно </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Комментарий</mat-label>
+    <textarea matInput placeholder="Ваш отзыв" formControlName="text" rows="4"></textarea>
+    @if (commentForm.get('text')?.hasError('required')) {
+      <mat-error> Требуется </mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="submit">Отправить</button>
+</form>

@@ -1,0 +1,54 @@
+h2 {
+  font-size: 20px;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 500px;
+  margin: 20px 0;
+
+  .full-width {
+    width: 100%;
+  }
+
+  button {
+    align-self: flex-start;
+    padding: 0 32px;
+  }
+}
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.comment-form {
+  ::ng-deep {
+    // Весь основной текст
+    .mat-mdc-form-field-flex {
+      input,
+      textarea,
+      .mat-mdc-floating-label {
+        color: white !important;
+      }
+    }
+
+    // Рамка в обычном состоянии
+    .mdc-outlined-intrinsic-outline {
+      border-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    // Рамка при наведении (то, что тебя бесило)
+    .mat-mdc-form-field:hover .mdc-outlined-intrinsic-outline {
+      border-color: white !important;
+    }
+
+    // Цвет плейсхолдера
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5) !important;
+    }
+  }
+}

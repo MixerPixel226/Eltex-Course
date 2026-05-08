@@ -6,8 +6,10 @@ interface FormBase {
 
 export interface FormCreate extends FormBase {
   id?: string;
+  rating?: number;
 }
 
 export interface History extends FormBase {
   id: string;
+  rating?: number;
 }
