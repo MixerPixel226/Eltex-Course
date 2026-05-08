@@ -1,0 +1,64 @@
+<section class="history">
+  @if (history(); as hist) {
+    <h1 class="history__title">{{ hist.title }}</h1>
+    <img class="history__image" [src]="hist.img" />
+
+    <div class="history__text">
+      {{ hist.desc }}
+    </div>
+
+    <div class="raiting">
+      <button class="raiting__btn" (click)="onLikeHistory(false)">
+        <mat-icon fontIcon="arrow_drop_down"></mat-icon>
+      </button>
+
+      <span class="raiting__amount">{{ hist.rating }}</span>
+
+      <button class="raiting__btn" (click)="onLikeHistory(true)">
+        <mat-icon fontIcon="arrow_drop_up"></mat-icon>
+      </button>
+    </div>
+  }
+
+  @if (history(); as hist) {
+    <app-comment-form [idHis]="hist.id" (submitted)="addComment($event)"> </app-comment-form>
+  }
+
+  <div class="history__comments">
+    <h2>Комментарии ({{ comments().length }})</h2>
+    @if (comments().length > 0) {
+      <ul>
+        @for (comment of sortedComments(); track comment.id) {
+          <li>
+            <mat-card class="comment" appearance="outlined">
+              <mat-card-header>
+                <img
+                  mat-card-avatar
+                  class="comment__img"
+                  src="https://i.pinimg.com/736x/d1/56/2f/d1562ffd1f6cc711be1563895f426451.jpg"
+                />
+                <mat-card-title class="comment__title">@{{ comment.username }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content class="comment__content">
+                {{ comment.text }}
+              </mat-card-content>
+              <mat-card-footer class="comment__footer">
+                <div class="raiting">
+                  <button class="raiting__btn" (click)="onLikeComment(comment.id, false)">
+                    <mat-icon fontIcon="arrow_drop_down"></mat-icon>
+                  </button>
+
+                  <span class="raiting__amount">{{ comment.rating }}</span>
+
+                  <button class="raiting__btn" (click)="onLikeComment(comment.id, true)">
+                    <mat-icon fontIcon="arrow_drop_up"></mat-icon>
+                  </button>
+                </div>
+              </mat-card-footer>
+            </mat-card>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</section>
