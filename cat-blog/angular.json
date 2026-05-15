@@ -92,7 +92,9 @@
           "builder": "angular-cli-ghpages:deploy",
           "options": {
             "name": "Max",
-            "email": "maxuswill@yandex.ru"
+            "email": "maxuswill@yandex.ru",
+            "buildTarget": "cat-blog:build:production",
+            "baseHref": "/Eltex-Course/"
           }
         }
       }
