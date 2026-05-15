@@ -1,15 +1,15 @@
 interface FormBase {
   title: string;
-  desc: string;
-  img: string;
+  content: string;
+  imgSrc: string | null;
+  categoryId: number | null;
 }
 
-export interface FormCreate extends FormBase {
-  id?: string;
-  rating?: number;
-}
+export interface HistoryForm extends FormBase {}
 
 export interface History extends FormBase {
   id: string;
-  rating?: number;
+  rating: number;
+  createdAt: string;
+  updatedAt: string;
 }

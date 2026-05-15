@@ -1,5 +1,11 @@
 <form class="creating-form" [formGroup]="creatingForm" (ngSubmit)="onSubmit()">
   <div class="creating-form__block">
+    <label for="form-create-img">Изображение</label>
+    <input type="file" id="form-create-img" accept="image/*" (change)="onFileChange($event)" />
+    <p class="file-hint">Выберите фото</p>
+  </div>
+
+  <div class="creating-form__block">
     <label for="form-create-title">Заголовок<span>*</span></label>
     <input
       type="text"
@@ -27,26 +33,25 @@
   <div class="creating-form__block">
     <label for="form-create-desc">Текст статьи<span>*</span></label>
     <textarea
-      formControlName="desc"
+      formControlName="content"
       placeholder="Текст статьи"
-      [class.invalid]="creatingForm.controls.desc.touched && creatingForm.controls.desc.invalid"
+      [class.invalid]="
+        creatingForm.controls.content.touched && creatingForm.controls.content.invalid
+      "
     ></textarea>
-    @if (creatingForm.controls.desc.invalid) {
+    @if (creatingForm.controls.content.invalid) {
       <div class="creating-form__errors">
         @if (
-          creatingForm.controls.desc.hasError('required') && creatingForm.controls.desc.touched
+          creatingForm.controls.content.hasError('required') &&
+          creatingForm.controls.content.touched
         ) {
           <span>Обязательно</span>
         }
       </div>
     }
   </div>
-  <div class="creating-form__block">
-    <label for="form-create-img">Изображение</label>
-    <input type="text" formControlName="img" placeholder="Изображение (адрес)" />
-  </div>
   <div class="creating-form__buttons">
-    @if (formObj().id) {
+    @if (idEditing()) {
       <button
         id="btn-create"
         class="button btn-submit btn-edit"

@@ -26,7 +26,6 @@ h2 {
 
 .comment-form {
   ::ng-deep {
-    // Весь основной текст
     .mat-mdc-form-field-flex {
       input,
       textarea,
@@ -35,20 +34,19 @@ h2 {
       }
     }
 
-    // Рамка в обычном состоянии
     .mdc-outlined-intrinsic-outline {
       border-color: rgba(255, 255, 255, 0.3) !important;
     }
 
-    // Рамка при наведении (то, что тебя бесило)
     .mat-mdc-form-field:hover .mdc-outlined-intrinsic-outline {
       border-color: white !important;
     }
 
-    // Цвет плейсхолдера
     input::placeholder,
     textarea::placeholder {
       color: rgba(255, 255, 255, 0.5) !important;
     }
   }
 }
+
+//Раньше тут был текст от нейросети, потому что шило накидывать стили :)))

@@ -1,76 +1,82 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { History } from '../../types/history.interface';
+import { HistoryForm, History } from '../../types/history.interface';
 import { IHistoryService } from '../../types/histories-service.interface';
 import { ELEMENTS_PAGE, HISTORIES_STORAGE } from './history.config';
 
 @Injectable()
 export class HistoryService implements IHistoryService {
   getHistoriesFromServer(page: number) {
-    return new Observable<{ data: History[]; total: number }>((sub) => {
-      const histories = JSON.parse(localStorage.getItem(HISTORIES_STORAGE) ?? '[]');
-      const index = (page - 1) * ELEMENTS_PAGE;
-      const cutted = histories.slice(index, index + ELEMENTS_PAGE);
-      sub.next({ data: cutted, total: histories.length });
-      sub.complete();
-    });
+    return new Observable<{ items: History[]; total: number; page: number; limit: number }>(
+      (sub) => {
+        const histories = JSON.parse(localStorage.getItem(HISTORIES_STORAGE) ?? '[]');
+        const index = (page - 1) * ELEMENTS_PAGE;
+        const cutted = histories.slice(index, index + ELEMENTS_PAGE);
+        sub.next({ items: cutted, total: histories.length, page: page, limit: ELEMENTS_PAGE });
+        sub.complete();
+      },
+    );
   }
 
-  addHistoryOnServer(newHis: History) {
-    return new Observable<{ success: Boolean; message?: string }>((sub) => {
+  addHistoryOnServer(newHis: HistoryForm) {
+    return new Observable<History>((sub) => {
       const histories = JSON.parse(localStorage.getItem(HISTORIES_STORAGE) ?? '[]');
 
       const newHistory = {
         id: crypto.randomUUID(),
         title: newHis.title,
-        desc: newHis.desc,
-        img: newHis.img || 'assets/no-image.png',
+        content: newHis.content,
+        imgSrc: newHis.imgSrc || null,
         rating: 0,
+        categoryId: newHis.categoryId ?? null,
+        createdAt: new Date().toDateString(),
+        updatedAt: new Date().toDateString(),
       };
 
       const updateHistories = [...histories, newHistory];
       localStorage.setItem(HISTORIES_STORAGE, JSON.stringify(updateHistories));
-      sub.next({ success: true });
+      sub.next(newHistory);
       sub.complete();
     });
   }
 
-  editingHistoryOnServer(editHis: History) {
-    return new Observable<{ success: Boolean; message?: string }>((sub) => {
+  editingHistoryOnServer(id: string, editHis: HistoryForm) {
+    return new Observable<History>((sub) => {
       const histories: History[] = JSON.parse(localStorage.getItem(HISTORIES_STORAGE) ?? '[]');
 
-      const deletedHistory = histories.some((e) => e.id === editHis.id);
+      const editingHistory = histories.find((e) => e.id === id);
 
-      if (!deletedHistory) {
-        sub.next({ success: false, message: 'Несуществующий элемент' });
-        sub.complete();
+      if (!editingHistory) {
+        sub.error({ message: 'Несуществующий элемент' });
         return;
       }
 
-      const updateList = histories.map((el) => (el.id === editHis.id ? editHis : el));
+      const updateElement = { ...editingHistory, ...editHis };
+
+      const updateList = histories.map((el) => (el.id === id ? updateElement : el));
       localStorage.setItem(HISTORIES_STORAGE, JSON.stringify(updateList));
 
-      sub.next({ success: true });
+      sub.next(updateElement);
       sub.complete();
     });
   }
 
-  deleteHistoryFromServer(id: string) {
-    return new Observable<{ success: Boolean; message?: string }>((sub) => {
+  deleteHistoryFromServer(idDelete: string) {
+    return new Observable<Omit<History, 'id'>>((sub) => {
       const histories: History[] = JSON.parse(localStorage.getItem(HISTORIES_STORAGE) ?? '[]');
 
-      const deletedHistory = histories.some((e) => e.id === id);
+      const deletedHistory = histories.find((e) => e.id === idDelete);
 
-      if (!deletedHistory) {
-        sub.next({ success: false, message: 'Несуществующий элемент' });
-        sub.complete();
+      if (deletedHistory === undefined) {
+        sub.error({ message: 'Нет таких ребят' });
         return;
       }
 
-      const updateList = histories.filter((e) => e.id !== id);
+      const updateList = histories.filter((e) => e.id !== idDelete);
       localStorage.setItem(HISTORIES_STORAGE, JSON.stringify(updateList));
 
-      sub.next({ success: true });
+      const { id, ...delHistory } = deletedHistory;
+      sub.next(delHistory);
       sub.complete();
     });
   }

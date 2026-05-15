@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  signal,
+} from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,8 +15,8 @@ import { HISTORY_CARD_SERVICE_TOKEN } from '../../../services/historyCard/histor
 import { HistoryCardService } from '../../../services/historyCard/history-card-service';
 import { HistoryCardStore } from '../../../services/historyCard/history-card-store';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CommentFormComponent, ICommentForm } from '../../components/comment-form/comment-form';
-import { IComment } from '../../../types/comment.interface';
+import { CommentFormComponent } from '../../components/comment-form/comment-form';
+import { IComment, ICommentForm } from '../../../types/comment.interface';
 import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-history-page',
@@ -34,10 +41,13 @@ export class HistoryPage {
   protected history = this.cardStore.history;
   protected comments = this.cardStore.comments;
 
+  public idHistory = signal<string>('');
+
   ngOnInit() {
     this.params$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((id) => {
       if (id) {
         this.getHistory(id);
+        this.idHistory.set(id);
       }
     });
   }
@@ -46,7 +56,7 @@ export class HistoryPage {
     const allComments = this.comments();
 
     return [...allComments].sort((a, b) => {
-      return new Date(b.date).getTime() - new Date(a.date).getTime();
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
   });
 
@@ -72,12 +82,12 @@ export class HistoryPage {
       });
   }
 
-  addComment(comment: IComment) {
+  addComment(comment: ICommentForm) {
     this.cardService
       .addCommentsOnServer(comment)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
-        this.cardStore.setComments(data);
+        this.getСomments(this.idHistory());
       });
   }
 
@@ -85,9 +95,9 @@ export class HistoryPage {
     this.cardService
       .likeCommentOnServer(idComment, isLike)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((newRating) => {
+      .subscribe((comment) => {
         const updatedComments = this.comments().map((c) =>
-          c.id === idComment ? { ...c, rating: newRating } : c,
+          c.id === idComment ? { ...c, rating: comment.rating } : c,
         );
         this.cardStore.setComments(updatedComments);
       });
@@ -100,11 +110,11 @@ export class HistoryPage {
     this.cardService
       .likeHistoryOnServer(idHistory, isLike)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((newRating) => {
-        console.log(newRating);
+      .subscribe((newHis) => {
+        console.log(newHis);
         const currentHistory = this.history();
         if (currentHistory) {
-          this.cardStore.setHistory({ ...currentHistory, rating: newRating });
+          this.cardStore.setHistory({ ...currentHistory, rating: newHis.rating });
         }
       });
   }

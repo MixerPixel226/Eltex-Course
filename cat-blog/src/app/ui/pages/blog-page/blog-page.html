@@ -19,6 +19,7 @@
   <app-modal [header]="titleForm()">
     <app-creating-form
       [(formObj)]="editingHistory"
+      [(idEditing)]="idEditing"
       (onCancelModal)="modalCreatingFormOpen(false)"
       (onCreate)="addHistory($event)"
       (onEdit)="editHistory($event)"
