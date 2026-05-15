@@ -1,10 +1,10 @@
 <section class="history">
   @if (history(); as hist) {
     <h1 class="history__title">{{ hist.title }}</h1>
-    <img class="history__image" [src]="hist.img" />
+    <img class="history__image" [src]="hist.imgSrc || 'assets/no-image.png'" />
 
     <div class="history__text">
-      {{ hist.desc }}
+      {{ hist.content }}
     </div>
 
     <div class="raiting">
@@ -38,7 +38,7 @@
                 <mat-card-title class="comment__title">@{{ comment.username }}</mat-card-title>
               </mat-card-header>
               <mat-card-content class="comment__content">
-                {{ comment.text }}
+                {{ comment.content }}
               </mat-card-content>
               <mat-card-footer class="comment__footer">
                 <div class="raiting">

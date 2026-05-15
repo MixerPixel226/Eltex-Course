@@ -15,13 +15,13 @@
         <li class="histories__item">
           <article class="history" (click)="navigateHistory(history.id)">
             <div class="history__img">
-              <img [src]="history.img" alt="Картинка истории" />
-              <p class="history__desc history__desc--hidden">{{ history.desc }}</p>
+              <img [src]="history.imgSrc || 'assets/no-image.png'" alt="Картинка истории" />
+              <p class="history__desc history__desc--hidden">{{ history.content }}</p>
             </div>
             <div class="history-down">
               <span class="history__number">История</span>
               <h3 class="history__title">{{ history.title }}</h3>
-              <p class="history__desc">{{ history.desc }}</p>
+              <p class="history__desc">{{ history.content }}</p>
             </div>
             <div class="history__buttons">
               @if (fullBlog()) {

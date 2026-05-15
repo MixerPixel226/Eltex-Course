@@ -1,15 +1,13 @@
 interface ICommentBase {
   username: string;
-  text: string;
-  date: Date;
-  idHis: string;
+  content: string;
+  articleId: string;
 }
 
-export interface ICommentFrom extends ICommentBase {
-  id?: string;
-}
+export interface ICommentForm extends ICommentBase {}
 
 export interface IComment extends ICommentBase {
   id: string;
   rating: number;
+  createdAt: string;
 }

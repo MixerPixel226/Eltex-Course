@@ -1,5 +1,5 @@
 import { DestroyRef, inject, Injectable, signal } from '@angular/core';
-import { History } from '../../types/history.interface';
+import { History, HistoryForm } from '../../types/history.interface';
 import { HISTORY_SERVICE_TOKEN } from './history-service.token';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -30,7 +30,8 @@ export class HistoryStore {
       .getHistoriesFromServer(this._currentPage())
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((response) => {
-        this._histories.set(response.data);
+        console.log(response.items);
+        this._histories.set(response.items);
         this._totalHistories.set(response.total);
       });
   }
@@ -39,34 +40,33 @@ export class HistoryStore {
     this.hisService
       .deleteHistoryFromServer(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((response) => {
-        if (response.success) {
+      .subscribe({
+        next: () => {
           this.getHistories();
-        } else {
-          console.log(response.message);
-        }
+        },
+        error: (error) => {
+          console.log(error);
+        },
       });
   }
 
-  public editingHistory(objData: History) {
+  public addHistory(objData: HistoryForm, file: File | null) {
     this.hisService
-      .editingHistoryOnServer(objData)
+      .addHistoryOnServer(objData, file)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((response) => {
-        if (response.success) {
-          this.getHistories();
-        } else {
-          console.log(response.message);
-        }
+      .subscribe({
+        next: () => this.getHistories(),
+        error: (error) => console.log(error),
       });
   }
 
-  public addHistory(objData: any) {
+  public editingHistory(id: string, objData: HistoryForm, file: File | null) {
     this.hisService
-      .addHistoryOnServer(objData)
+      .editingHistoryOnServer(id, objData, file)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((response) => {
-        if (response.success) this.getHistories();
+      .subscribe({
+        next: () => this.getHistories(),
+        error: (error) => console.log(error),
       });
   }
 }

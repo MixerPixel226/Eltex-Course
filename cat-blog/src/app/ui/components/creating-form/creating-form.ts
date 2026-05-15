@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, input, model, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { History, FormCreate } from '../../../types/history.interface';
+import { History, HistoryForm } from '../../../types/history.interface';
 
 @Component({
   selector: 'app-creating-form',
@@ -11,19 +11,22 @@ import { History, FormCreate } from '../../../types/history.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreatingForm {
-  public formObj = model.required<FormCreate>();
+  public formObj = model.required<HistoryForm>();
+  public idEditing = model<string | null>(null);
+
+  public selectedFile: File | null = null;
 
   public onCancelModal = output<void>();
-  public onCreate = output<FormCreate>();
-  public onEdit = output<History>();
+  public onCreate = output<{ formData: HistoryForm; file: File | null }>();
+  public onEdit = output<{ formData: HistoryForm; id: string; file: File | null }>();
 
   public creatingForm = new FormGroup({
     title: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(25)],
     }),
-    desc: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    img: new FormControl('', { nonNullable: true }),
+    content: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    categoryId: new FormControl<number | null>(null),
   });
 
   constructor() {
@@ -33,29 +36,39 @@ export class CreatingForm {
     });
   }
 
-  protected onSubmit() {
-    if (this.creatingForm.valid) {
-      const id = this.formObj().id;
-      const formData = this.creatingForm.getRawValue();
-
-      if (id) {
-        const values = { ...formData, id: id };
-        this.onEdit.emit(values);
-      } else {
-        this.onCreate.emit(formData);
-      }
-
-      this.formObj.set({ title: '', desc: '', img: '' });
-
-      this.creatingForm.reset({ title: '', desc: '', img: '' });
-      this.onCancel();
-    } else {
-      this.creatingForm.markAllAsTouched();
+  protected onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
     }
   }
 
+  protected onSubmit() {
+    if (this.creatingForm.valid) {
+      const id = this.idEditing();
+      const rawValue = this.creatingForm.getRawValue();
+      const formData: HistoryForm = { ...rawValue, imgSrc: null };
+
+      if (id) {
+        this.onEdit.emit({ formData, id, file: this.selectedFile });
+      } else {
+        this.onCreate.emit({ formData, file: this.selectedFile });
+      }
+
+      this.resetForm();
+    }
+  }
+
+  private resetForm() {
+    this.formObj.set({ title: '', content: '', imgSrc: null, categoryId: null });
+    this.creatingForm.reset();
+    this.selectedFile = null;
+    this.onCancel();
+  }
+
   protected onCancel() {
-    this.formObj.set({ title: '', desc: '', img: '' });
+    this.formObj.set({ title: '', content: '', imgSrc: null, categoryId: null });
+    this.idEditing.set(null);
     this.onCancelModal.emit();
   }
 }

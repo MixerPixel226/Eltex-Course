@@ -12,7 +12,7 @@ import { CreatingForm } from '../../components/creating-form/creating-form';
 import { Modal } from '../../components/modal/modal';
 import { Stats } from '../../components/stats/stats';
 import { HistoryStore } from '../../../services/history/history-store';
-import { History, FormCreate } from '../../../types/history.interface';
+import { History, HistoryForm } from '../../../types/history.interface';
 
 @Component({
   selector: 'app-blog-page',
@@ -32,20 +32,25 @@ export class BlogPage implements OnInit {
     this.historyStoreService.getHistories();
   }
 
-  public editingHistory = signal<FormCreate>({ title: '', desc: '', img: '' });
+  public editingHistory = signal<HistoryForm>({
+    title: '',
+    content: '',
+    imgSrc: null,
+    categoryId: null,
+  });
+
+  public idEditing = signal<string | null>(null);
 
   public histories = this.historyStoreService.histories;
 
-  public titleForm = computed(() =>
-    this.editingHistory().id ? 'Редактировать статью' : 'Создать статью',
-  );
+  public titleForm = computed(() => (this.idEditing() ? 'Редактировать статью' : 'Создать статью'));
 
-  addHistory(objHis: FormCreate) {
-    this.historyStoreService.addHistory(objHis);
+  addHistory(event: { formData: HistoryForm; file: File | null }) {
+    this.historyStoreService.addHistory(event.formData, event.file);
   }
 
-  editHistory(objHis: History) {
-    this.historyStoreService.editingHistory(objHis);
+  editHistory(event: { formData: HistoryForm; id: string; file: File | null }) {
+    this.historyStoreService.editingHistory(event.id, event.formData, event.file);
   }
 
   deleteHistory(id: string) {
@@ -54,13 +59,14 @@ export class BlogPage implements OnInit {
 
   changePage(page: number) {
     this.historyStoreService.changePage(page);
-    console.log('2');
   }
 
   handleEditHis(id: string) {
     const history = this.histories().find((el) => el.id === id);
     if (history) {
-      this.editingHistory.set(history);
+      const { title, content, imgSrc, categoryId } = history;
+      this.idEditing.set(history.id);
+      this.editingHistory.set({ title, content, imgSrc, categoryId });
       this.modalCreatingFormOpen(true);
     }
   }
