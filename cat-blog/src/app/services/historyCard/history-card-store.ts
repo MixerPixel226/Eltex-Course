@@ -2,9 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { History } from '../../types/history.interface';
 import { IComment } from '../../types/comment.interface';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class HistoryCardStore {
   constructor() {}
 

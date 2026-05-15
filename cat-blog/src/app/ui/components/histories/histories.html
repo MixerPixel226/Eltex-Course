@@ -25,10 +25,17 @@
             </div>
             <div class="history__buttons">
               @if (fullBlog()) {
-                <button class="history__btn history__delete" (click)="deleteHis(history.id)">
+                <button
+                  class="history__btn history__delete"
+                  (click)="deleteHis($event, history.id)"
+                >
                   <mat-icon fontIcon="delete"></mat-icon>
                 </button>
-                <button class="history__btn history__edit" (click)="editHis(history.id)">
+                <button
+                  #editBtn
+                  class="history__btn history__edit"
+                  (click)="editHis($event, history.id)"
+                >
                   <mat-icon fontIcon="edit_square"></mat-icon>
                 </button>
               }

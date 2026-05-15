@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input,
+  output,
+  ViewChild,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { History } from '../../../types/history.interface';
 import { ELEMENTS_PAGE } from '../../../services/history/history.config';
@@ -37,11 +46,13 @@ export class Histories {
     this.onChangePage.emit(page);
   }
 
-  protected deleteHis(id: string) {
+  protected deleteHis(event: Event, id: string) {
+    event.stopPropagation();
     this.onDelete.emit(id);
   }
 
-  protected editHis(id: string) {
+  protected editHis(event: Event, id: string) {
+    event.stopPropagation();
     this.onEdit.emit(id);
   }
 }
