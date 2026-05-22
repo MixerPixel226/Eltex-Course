@@ -10,6 +10,6 @@ export interface HistoryForm extends FormBase {}
 export interface History extends FormBase {
   id: string;
   rating: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

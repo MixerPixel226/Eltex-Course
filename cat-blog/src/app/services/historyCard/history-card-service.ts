@@ -33,7 +33,7 @@ export class HistoryCardService implements IHistoryCardService {
   }
 
   addCommentsOnServer(comment: ICommentForm) {
-    return new Observable<IComment[]>((sub) => {
+    return new Observable<IComment>((sub) => {
       const totalComments: IComment[] = JSON.parse(localStorage.getItem(COMMENTS_STORAGE) ?? '[]');
 
       const newComment: IComment = {
@@ -46,9 +46,7 @@ export class HistoryCardService implements IHistoryCardService {
       totalComments.push(newComment);
       localStorage.setItem(COMMENTS_STORAGE, JSON.stringify(totalComments));
 
-      const com = totalComments.filter((e) => comment.articleId === e.articleId);
-
-      sub.next(com);
+      sub.next(newComment);
       sub.complete();
     });
   }

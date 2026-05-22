@@ -30,7 +30,6 @@ export class HistoryStore {
       .getHistoriesFromServer(this._currentPage())
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((response) => {
-        console.log(response.items);
         this._histories.set(response.items);
         this._totalHistories.set(response.total);
       });

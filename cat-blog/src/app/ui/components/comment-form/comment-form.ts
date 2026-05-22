@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  FormGroupDirective,
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,7 +32,7 @@ export class CommentFormComponent {
     });
   }
 
-  onSend(): void {
+  onSend(formDirective: FormGroupDirective): void {
     if (this.commentForm.valid) {
       const formValue: ICommentForm = {
         ...this.commentForm.value,
@@ -34,7 +40,7 @@ export class CommentFormComponent {
       };
 
       this.submitted.emit(formValue);
-      this.commentForm.reset();
+      formDirective.resetForm();
     }
   }
 }

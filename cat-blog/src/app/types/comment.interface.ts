@@ -10,4 +10,7 @@ export interface IComment extends ICommentBase {
   id: string;
   rating: number;
   createdAt: string;
+  avgRating?: number;
+  votesCount?: number;
+  votes?: number | null;
 }
