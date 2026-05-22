@@ -1,5 +1,10 @@
 <h2>Добавить комментарий</h2>
-<form [formGroup]="commentForm" (ngSubmit)="onSend()" class="comment-form">
+<form
+  [formGroup]="commentForm"
+  #formDirective="ngForm"
+  (ngSubmit)="onSend(formDirective)"
+  class="comment-form"
+>
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Имя</mat-label>
     <input matInput placeholder="Введите ваше имя" formControlName="username" />
@@ -10,7 +15,7 @@
 
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Комментарий</mat-label>
-    <textarea matInput placeholder="Ваш отзыв" formControlName="text" rows="4"></textarea>
+    <textarea matInput placeholder="Ваш отзыв" formControlName="content" rows="4"></textarea>
     @if (commentForm.get('text')?.hasError('required')) {
       <mat-error> Требуется </mat-error>
     }

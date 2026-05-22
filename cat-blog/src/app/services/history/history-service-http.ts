@@ -5,9 +5,7 @@ import { History, HistoryForm } from '../../types/history.interface';
 import { catchError, throwError } from 'rxjs';
 import { IHistoryService } from '../../types/histories-service.interface';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class HistoryServiceHttp implements IHistoryService {
   public http = inject(HttpClient);
 
