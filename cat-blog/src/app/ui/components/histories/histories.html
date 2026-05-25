@@ -23,7 +23,7 @@
               <h3 class="history__title">{{ history.title }}</h3>
               <p class="history__desc">{{ history.content }}</p>
             </div>
-            <div class="history__buttons">
+            <div class="history__buttons" *appHasRole="'admin'">
               @if (fullBlog()) {
                 <button
                   class="history__btn history__delete"

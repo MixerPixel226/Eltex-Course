@@ -1,25 +1,31 @@
 <h2>Добавить комментарий</h2>
-<form
-  [formGroup]="commentForm"
-  #formDirective="ngForm"
-  (ngSubmit)="onSend(formDirective)"
-  class="comment-form"
->
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Имя</mat-label>
-    <input matInput placeholder="Введите ваше имя" formControlName="username" />
-    @if (commentForm.get('username')?.hasError('required')) {
-      <mat-error> Имя обязательно </mat-error>
-    }
-  </mat-form-field>
+@if (authService.isAuthenticated()) {
+  <form
+    [formGroup]="commentForm"
+    #formDirective="ngForm"
+    (ngSubmit)="onSend(formDirective)"
+    class="comment-form"
+  >
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Имя</mat-label>
+      <input matInput placeholder="Введите ваше имя" formControlName="username" />
+      @if (commentForm.get('username')?.hasError('required')) {
+        <mat-error> Имя обязательно </mat-error>
+      }
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Комментарий</mat-label>
-    <textarea matInput placeholder="Ваш отзыв" formControlName="content" rows="4"></textarea>
-    @if (commentForm.get('text')?.hasError('required')) {
-      <mat-error> Требуется </mat-error>
-    }
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Комментарий</mat-label>
+      <textarea matInput placeholder="Ваш отзыв" formControlName="content" rows="4"></textarea>
+      @if (commentForm.get('text')?.hasError('required')) {
+        <mat-error> Требуется </mat-error>
+      }
+    </mat-form-field>
 
-  <button mat-flat-button color="primary" type="submit">Отправить</button>
-</form>
+    <button mat-flat-button color="primary" type="submit">Отправить</button>
+  </form>
+} @else {
+  <div class="comment-form-guest-info">
+    <p>Чтобы оставлять комментарии к историям Мяумяфа, пожалуйста, войдите в свой аккаунт.</p>
+  </div>
+}
