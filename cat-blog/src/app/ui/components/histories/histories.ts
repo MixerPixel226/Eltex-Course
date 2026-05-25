@@ -12,10 +12,11 @@ import { Router, RouterLink } from '@angular/router';
 import { History } from '../../../types/history.interface';
 import { ELEMENTS_PAGE } from '../../../services/history/history.config';
 import { MatIconModule } from '@angular/material/icon';
+import { HasRoleDirective } from '../../directives/has-role.directive';
 
 @Component({
   selector: 'app-histories',
-  imports: [RouterLink, MatIconModule],
+  imports: [RouterLink, MatIconModule, HasRoleDirective],
   templateUrl: './histories.html',
   styleUrl: './histories.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -13,10 +13,11 @@ import { Modal } from '../../components/modal/modal';
 import { Stats } from '../../components/stats/stats';
 import { HistoryStore } from '../../../services/history/history-store';
 import { History, HistoryForm } from '../../../types/history.interface';
+import { HasRoleDirective } from '../../directives/has-role.directive';
 
 @Component({
   selector: 'app-blog-page',
-  imports: [Histories, ControlPanel, CreatingForm, Modal, Stats],
+  imports: [Histories, ControlPanel, CreatingForm, Modal, Stats, HasRoleDirective],
   templateUrl: './blog-page.html',
   styleUrl: './blog-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,0 +1,66 @@
+<div class="auth-container">
+  <h2>{{ title() }}</h2>
+
+  @if (serverError()) {
+    <div class="auth-server-error">
+      {{ serverError() }}
+    </div>
+  }
+
+  @if (isLogin()) {
+    <form [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()" class="auth-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Логин</mat-label>
+        <input matInput formControlName="login" />
+        @if (formLogin.controls.login.hasError('required')) {
+          <mat-error>Логин обязателен</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Пароль</mat-label>
+        <input matInput type="password" formControlName="password" />
+        @if (formLogin.controls.password.hasError('required')) {
+          <mat-error>Пароль обязателен</mat-error>
+        }
+      </mat-form-field>
+
+      <button class="auth__btn" type="submit" [disabled]="formLogin.invalid">Войти</button>
+    </form>
+  } @else {
+    <form [formGroup]="formRegister" (ngSubmit)="onSubmitRegister()" class="auth-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Логин</mat-label>
+        <input matInput formControlName="login" />
+        @if (formRegister.controls.login.hasError('required')) {
+          <mat-error>Логин обязателен</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+        @if (formRegister.controls.email.hasError('required')) {
+          <mat-error>Email обязателен</mat-error>
+        }
+        @if (formRegister.controls.email.hasError('email')) {
+          <mat-error>Введите корректный email</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Пароль</mat-label>
+        <input matInput type="password" formControlName="password" />
+        @if (formRegister.controls.password.hasError('required')) {
+          <mat-error>Пароль обязателен</mat-error>
+        }
+      </mat-form-field>
+
+      <button class="auth__btn" type="submit" [disabled]="formRegister.invalid">
+        Зарегистрироваться
+      </button>
+    </form>
+  }
+
+  <button class="auth__down" (click)="toggleMode()">{{ downTitle() }}</button>
+</div>

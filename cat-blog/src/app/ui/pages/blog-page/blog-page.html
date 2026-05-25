@@ -11,6 +11,7 @@
 ></app-histories>
 
 <app-control-panel
+  *appHasRole="'admin'"
   (onOpenCreatingModal)="modalCreatingFormOpen(true)"
   (onOpenStatsModal)="modalStatsOpen(true)"
 ></app-control-panel>
